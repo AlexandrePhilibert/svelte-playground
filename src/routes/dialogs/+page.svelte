@@ -5,12 +5,13 @@
 
 	let { data } = $props();
 
+	let managedDialogOpen = $state(false);
+
 	const {
 		form,
 		errors,
 		delayed,
 		reset,
-		submit,
 		enhance: sfEnhance
 	} = superForm(data.form, {
 		delayMs: 500
@@ -64,7 +65,28 @@
 		{/snippet}
 	</Dialog>
 
-	<Dialog title="Form modal" onclose={reset}>
+	<button onclick={() => (managedDialogOpen = true)} class="rounded-md bg-neutral-300 p-1"
+		>Managed modal</button
+	>
+
+	<Dialog title="Managed modal" bind:open={managedDialogOpen}>
+		{#snippet children({ dialog })}
+			<div class="flex flex-col">
+				<p>This is the content of the modal</p>
+				<div class="mt-4 flex justify-end gap-2">
+					<button class="bg-neutral-300 p-1" onclick={() => dialog.close()}>Cancel</button>
+					<button
+						class="bg-neutral-300 p-1"
+						onclick={() => {
+							dialog.close();
+						}}>Confirm</button
+					>
+				</div>
+			</div>
+		{/snippet}
+	</Dialog>
+
+	<Dialog title="svelte form modal" onclose={reset}>
 		{#snippet trigger({ dialog })}
 			<button onclick={() => dialog.showModal()} class="rounded-md bg-neutral-300 p-1"
 				>svelte form modal</button
@@ -98,7 +120,9 @@
 					<div class="text-red-600">{$errors.text.join(',')}</div>
 				{/if}
 				<div class="mt-4 flex justify-end gap-2">
-					<button class="bg-neutral-300 p-1" type="button" formmethod="dialog">Cancel</button>
+					<button class="bg-neutral-300 p-1" type="button" onclick={() => dialog.close()}
+						>Cancel</button
+					>
 					<button class="bg-neutral-300 p-1">
 						{#if $delayed}
 							...
@@ -110,7 +134,7 @@
 		{/snippet}
 	</Dialog>
 
-	<Dialog title="Form modal" onclose={reset}>
+	<Dialog title="sveltekit-superform form modal" onclose={reset}>
 		{#snippet trigger({ dialog })}
 			<button onclick={() => dialog.showModal()} class="rounded-md bg-neutral-300 p-1"
 				>sveltekit-superforms form modal</button
@@ -144,7 +168,9 @@
 					<div class="text-red-600">{$errors.text.join(',')}</div>
 				{/if}
 				<div class="mt-4 flex justify-end gap-2">
-					<button class="bg-neutral-300 p-1" type="button" formmethod="dialog">Cancel</button>
+					<button class="bg-neutral-300 p-1" type="button" onclick={() => dialog.close()}
+						>Cancel</button
+					>
 					<button class="bg-neutral-300 p-1">
 						{#if $delayed}
 							...
