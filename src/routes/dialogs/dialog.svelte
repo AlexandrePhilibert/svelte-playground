@@ -18,7 +18,7 @@
 <dialog class="rounded-md border p-4" bind:this={dialogElement} {onclose}>
 	<div class="flex items-start justify-between">
 		<div class="text-lg font-semibold">{title}</div>
-		<button onclick={() => dialogElement?.close()}>X</button>
+		<button type="button" onclick={() => dialogElement?.close()}>X</button>
 	</div>
 	{@render children({ dialog: dialogElement! })}
 </dialog>

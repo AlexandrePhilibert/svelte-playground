@@ -10,6 +10,7 @@
 		errors,
 		delayed,
 		reset,
+		submit,
 		enhance: sfEnhance
 	} = superForm(data.form, {
 		delayMs: 500
@@ -74,8 +75,6 @@
 				class="flex flex-col"
 				method="POST"
 				use:enhance={() => {
-					alert('here');
-
 					return async ({ result }) => {
 						if (result.type === 'success') {
 							dialog.close();
@@ -99,7 +98,7 @@
 					<div class="text-red-600">{$errors.text.join(',')}</div>
 				{/if}
 				<div class="mt-4 flex justify-end gap-2">
-					<button class="bg-neutral-300 p-1" formmethod="dialog">Cancel</button>
+					<button class="bg-neutral-300 p-1" type="button" formmethod="dialog">Cancel</button>
 					<button class="bg-neutral-300 p-1">
 						{#if $delayed}
 							...
@@ -122,8 +121,10 @@
 				class="flex flex-col"
 				method="POST"
 				use:sfEnhance={{
-					onUpdated: () => {
-						dialog.close();
+					onUpdated: ({ form }) => {
+						if (form.valid) {
+							dialog.close();
+						}
 					}
 				}}
 			>
@@ -143,7 +144,7 @@
 					<div class="text-red-600">{$errors.text.join(',')}</div>
 				{/if}
 				<div class="mt-4 flex justify-end gap-2">
-					<button class="bg-neutral-300 p-1" formmethod="dialog">Cancel</button>
+					<button class="bg-neutral-300 p-1" type="button" formmethod="dialog">Cancel</button>
 					<button class="bg-neutral-300 p-1">
 						{#if $delayed}
 							...
