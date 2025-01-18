@@ -9,7 +9,7 @@
 		onclose?: () => void;
 	};
 
-	let { id, title, open = $bindable(), trigger, children, onclose }: Props = $props();
+	let { title, open = $bindable(), trigger, children, onclose }: Props = $props();
 
 	let dialogElement = $state<HTMLDialogElement>();
 
