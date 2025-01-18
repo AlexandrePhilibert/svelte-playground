@@ -73,12 +73,15 @@
 				}}
 			>
 				<p>This is the content of the modal</p>
+				<!-- svelte-ignore a11y_autofocus -->
+				<!-- We shouldn't get an a11y error inside a dialog -->
 				<input
 					type="text"
 					placeholder="text"
 					id="text"
 					name="text"
 					class="rounded-md border p-1"
+					autofocus
 					bind:value={$form.text}
 				/>
 				{#if $errors.text}
